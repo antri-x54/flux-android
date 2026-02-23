@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="⚠️ Ошибка сертификата безопасности"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="?attr/colorError"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Не удалось проверить подлинность сервера. Это может означать:"
+        android:textSize="14sp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="• Используется самоподписанный сертификат\n• Сертификат просрочен\n• Возможна попытка атаки (MITM)"
+        android:textSize="13sp"
+        android:alpha="0.8"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Информация о сертификате:"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Хост:"
+        android:textSize="12sp"
+        android:alpha="0.7"/>
+
+    <TextView
+        android:id="@+id/ssl_hostname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="example.com"
+        android:textSize="14sp"
+        android:textIsSelectable="true"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Субъект:"
+        android:textSize="12sp"
+        android:alpha="0.7"/>
+
+    <TextView
+        android:id="@+id/ssl_subject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CN=example.com"
+        android:textSize="14sp"
+        android:textIsSelectable="true"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Издатель:"
+        android:textSize="12sp"
+        android:alpha="0.7"/>
+
+    <TextView
+        android:id="@+id/ssl_issuer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CN=Example CA"
+        android:textSize="14sp"
+        android:textIsSelectable="true"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Отпечаток (SHA-256):"
+        android:textSize="12sp"
+        android:alpha="0.7"/>
+
+    <TextView
+        android:id="@+id/ssl_fingerprint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="AA:BB:CC:..."
+        android:textSize="12sp"
+        android:fontFamily="monospace"
+        android:textIsSelectable="true"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Продолжить вход на свой страх и риск?"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?attr/colorError"
+        android:layout_marginBottom="16dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/ssl_reject"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:text="Нет, отмена"/>
+
+        <Button
+            android:id="@+id/ssl_accept"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:text="Да, я понимаю риск"
+            android:backgroundTint="?attr/colorError"/>
+
+    </LinearLayout>
+
+</LinearLayout>

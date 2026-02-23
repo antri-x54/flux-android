@@ -1,0 +1,323 @@
+<resources>
+    <!-- App Name -->
+    <string name="app_name">OpenVK Flux</string>
+
+    <!-- Common -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="loading">Загрузка...</string>
+    <string name="error">Ошибка</string>
+    <string name="success">Успешно</string>
+    <string name="cancel">Отмена</string>
+    <string name="ok">ОК</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="save">Сохранить</string>
+    <string name="delete">Удалить</string>
+    <string name="edit">Редактировать</string>
+    <string name="close">Закрыть</string>
+    <string name="back">Назад</string>
+    <string name="search">Поиск</string>
+    <string name="search_hint">Поиск...</string>
+    <string name="refresh">Обновить</string>
+    <string name="share">Поделиться</string>
+    <string name="copy">Копировать</string>
+    <string name="link_copied">Ссылка скопирована</string>
+
+    <!-- Navigation -->
+    <string name="open_drawer">Открыть меню</string>
+    <string name="close_drawer">Закрыть меню</string>
+    <string name="nav_news">Новости</string>
+    <string name="nav_messages">Сообщения</string>
+    <string name="nav_friends">Друзья</string>
+    <string name="nav_groups">Группы</string>
+    <string name="nav_photos">Фотографии</string>
+    <string name="nav_videos">Видео</string>
+    <string name="nav_music">Музыка</string>
+    <string name="nav_notes">Заметки</string>
+    <string name="nav_notifications">Уведомления</string>
+    <string name="nav_settings">Настройки</string>
+
+    <!-- Login -->
+    <string name="login_title">Вход</string>
+    <string name="login_welcome">Добро пожаловать!</string>
+    <string name="instance_hint">Инстанс (например, ovk.to)</string>
+    <string name="instance_helper">Укажите адрес инстанса OpenVK</string>
+    <string name="instance_address_hint">Введите адрес инстанса</string>
+    <string name="login_hint">Логин или email</string>
+    <string name="password_hint">Пароль</string>
+    <string name="forgot_password">Забыли пароль?</string>
+    <string name="btn_login">Войти</string>
+    <string name="btn_login_loading">Входим...</string>
+    <string name="no_account">Нет аккаунта?</string>
+    <string name="register">Зарегистрироваться</string>
+    <string name="login_success">Вы успешно вошли в аккаунт!</string>
+    <string name="select_instance">Выберите инстанс</string>
+    <string name="instance_address">Адрес: %s</string>
+    <string name="app_openvk">OpenVK</string>
+
+    <!-- Two Factor -->
+    <string name="two_factor_title">Двухфакторная аутентификация</string>
+    <string name="two_factor_subtitle">Подтверждение входа</string>
+    <string name="two_factor_description">Введите код из SMS или приложения-аутентификатора</string>
+    <string name="two_factor_code_hint">Код подтверждения</string>
+    <string name="btn_verify">Подтвердить</string>
+    <string name="btn_verify_loading">Проверка...</string>
+    <string name="resend_code">Отправить код повторно</string>
+    <string name="use_backup_code">Использовать резервный код</string>
+    <string name="two_factor_verified">Код подтвержден</string>
+
+    <!-- Instance Settings -->
+    <string name="instance_settings">Настройки инстанса</string>
+    <string name="current_instance_loading">Загрузка...</string>
+    <string name="current_instance_format">Текущий инстанс: %s</string>
+    <string name="current_instance_hint">Новый инстанс</string>
+    <string name="instance_change_helper">Изменение инстанса потребует повторного входа</string>
+    <string name="save_instance">Сохранить инстанс</string>
+    <string name="instance_saved">Инстанс сохранен</string>
+    <string name="instance_changed_logout">Инстанс изменен. Необходимо войти заново</string>
+    <string name="about_instance">Об инстанции</string>
+    <string name="instance_id">ID: %d</string>
+    <string name="instance_version">Версия: %s</string>
+    <string name="instance_users">Пользователи</string>
+    <string name="instance_online">Онлайн</string>
+    <string name="instance_active">Активные</string>
+    <string name="instance_groups">Группы</string>
+
+    <!-- Posts -->
+    <string name="post_author">Автор поста</string>
+    <string name="post_content">Текст поста</string>
+    <string name="post_original_author">Автор оригинального поста</string>
+    <string name="post_original_content">Текст оригинального поста</string>
+    <string name="post_time_ago">%s назад</string>
+    <string name="post_likes">Лайки</string>
+    <string name="post_comments">Комментарии</string>
+    <string name="post_shares">Поделиться</string>
+    <string name="post_share_from">Поделиться постом от %s</string>
+    <string name="post_like_error">Невозможно поставить лайк этому посту</string>
+    <string name="post_edit_not_supported">Редактирование поста пока не реализовано</string>
+    <string name="post_delete_not_supported">Удаление поста пока не реализовано</string>
+    <string name="post_pin_not_supported">Закрепление поста пока не реализовано</string>
+    <string name="post_delete_confirm">Удалить пост?</string>
+    <string name="post_delete_message">Это действие нельзя отменить</string>
+    <string name="post_published">Пост опубликован!</string>
+    <string name="post_publish_error">Ошибка публикации: %s</string>
+    <string name="post_publishing">Публикация...</string>
+
+    <!-- Create Post -->
+    <string name="post_create_title">Создать пост</string>
+    <string name="create_post_whats_new">Что у вас нового?</string>
+    <string name="create_post_photo">Фото</string>
+    <string name="create_post_publish">Опубликовать</string>
+    <string name="create_post_author_loading">Загрузка...</string>
+
+    <!-- Comments -->
+    <string name="comments_title">Комментарии</string>
+    <string name="comments_write">Написать комментарий...</string>
+    <string name="comments_loading_error">Ошибка загрузки комментариев: %s</string>
+    <string name="comments_send_error">Ошибка отправки комментария: %s</string>
+    <string name="comments_add_error">Введите текст комментария или выберите изображение</string>
+    <string name="comments_cannot_load">Невозможно загрузить комментарии</string>
+    <string name="comments_updated">Комментарии обновлены</string>
+    <string name="comments_added">Комментарий добавлен</string>
+    <string name="comments_image_selected">Изображение выбрано</string>
+    <string name="comments_post_not_found">Ошибка: пост не найден</string>
+
+    <!-- News -->
+    <string name="news_loading_error">Ошибка загрузки новостей: %s</string>
+    <string name="news_refresh_error">Не удалось загрузить новые посты</string>
+    <string name="news_public_loading_error">Ошибка загрузки публичных постов: %s</string>
+    <string name="news_select_type">Выберите тип новостей</string>
+    <string name="news_create_post">Создать пост</string>
+
+    <!-- Messages -->
+    <string name="messages_title">Сообщения</string>
+    <string name="messages_loading_error">Ошибка загрузки диалогов: %s</string>
+    <string name="chat_title">Чат</string>
+    <string name="chat_message_hint">Введите сообщение...</string>
+    <string name="chat_send">Отправить</string>
+    <string name="chat_loading_error">Ошибка загрузки сообщений: %s</string>
+    <string name="chat_send_error">Ошибка отправки: %s</string>
+    <string name="message_incoming">Входящее сообщение</string>
+    <string name="message_outgoing">Исходящее сообщение</string>
+    <string name="message_time">%s</string>
+
+    <!-- Friends -->
+    <string name="friends_title">Друзья</string>
+    <string name="friends_search">Поиск друзей...</string>
+    <string name="friends_loading_error">Ошибка загрузки друзей: %s</string>
+    <string name="friends_not_found">Друзья не найдены</string>
+    <string name="friends_common">%d общих друзей</string>
+    <string name="friend_request_title">Заявка в друзья</string>
+    <string name="friend_accept">Принять</string>
+    <string name="friend_decline">Отклонить</string>
+    <string name="friend_request_accepted">Заявка принята</string>
+    <string name="friend_request_declined">Заявка отклонена</string>
+    <string name="friend_requests_loading_error">Ошибка загрузки заявок: %s</string>
+    <string name="friend_send_message">Написать сообщение</string>
+
+    <!-- Groups -->
+    <string name="groups_title">Группы</string>
+    <string name="groups_search">Поиск групп...</string>
+    <string name="groups_loading_error">Ошибка загрузки групп: %s</string>
+    <string name="group_name">Название группы</string>
+    <string name="group_type">Группа</string>
+    <string name="group_members">%d участников</string>
+    <string name="group_description">Описание группы</string>
+    <string name="group_members_search">Поиск участников</string>
+    <string name="group_members_loading_error">Ошибка загрузки участников: %s</string>
+    <string name="group_members_not_found">Участники не найдены</string>
+    <string name="group_joined">Вы вступили в группу</string>
+    <string name="group_left">Вы покинули группу</string>
+    <string name="group_load_error">Ошибка загрузки группы: %s</string>
+
+    <!-- Photos -->
+    <string name="photos_title">Фотографии</string>
+    <string name="photo_viewer">Фотография</string>
+    <string name="photo_more_images">+%d</string>
+
+    <!-- Videos -->
+    <string name="videos_title">Видео</string>
+    <string name="video_preview">Превью видео</string>
+    <string name="video_play">Воспроизвести</string>
+    <string name="video_url_not_found">URL видео не найден</string>
+    <string name="video_forward">%d »</string>
+    <string name="video_back">« %d</string>
+
+    <!-- Audio -->
+    <string name="audio_title">Название трека</string>
+    <string name="audio_artist">Исполнитель</string>
+    <string name="audio_playlist">Плейлист</string>
+    <string name="audio_track_name">Название</string>
+    <string name="audio_no_tracks">У вас пока нет аудиозаписей</string>
+    <string name="audio_search_error">Ошибка поиска: %s</string>
+    <string name="audio_nothing_found">Ничего не найдено</string>
+    <string name="audio_removed">Удалено из аудиозаписей</string>
+    <string name="audio_remove_error">Ошибка удаления: %s</string>
+    <string name="audio_added">Добавлено в аудиозаписи</string>
+    <string name="audio_add">Добавить</string>
+    <string name="audio_more">Ещё</string>
+    <string name="audio_no_title">Без названия</string>
+
+    <!-- Music Player -->
+    <string name="player_previous">Предыдущий трек</string>
+    <string name="player_play_pause">Воспроизвести/Пауза</string>
+    <string name="player_next">Следующий трек</string>
+    <string name="player_fullscreen">Полноэкранный режим</string>
+    <string name="mini_player_music">Музыка</string>
+    <string name="player_time_current">0:00</string>
+    <string name="player_time_total">0:00</string>
+    <string name="player_track_duration">%s</string>
+
+    <!-- Notifications -->
+    <string name="notifications_title">Уведомления</string>
+    <string name="notifications_loading_error">Ошибка загрузки архивных уведомлений: %s</string>
+    <string name="notifications_all_read">Все уведомления помечены как прочитанные</string>
+    <string name="notifications_mark_all_read">Пометить все как прочитанные</string>
+    <string name="notification_action">Пользователь выполнил действие</string>
+    <string name="notification_time_ago">%s назад</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Настройки</string>
+    <string name="settings_accounts">Управление аккаунтами</string>
+    <string name="settings_accounts_desc">Переключение между аккаунтами</string>
+    <string name="settings_appearance">Внешний вид</string>
+    <string name="settings_appearance_desc">Темы, цвета и контрастность</string>
+    <string name="settings_notifications">Уведомления</string>
+    <string name="settings_notifications_desc">Настройки уведомлений</string>
+    <string name="settings_data">Данные и хранилище</string>
+    <string name="settings_data_desc">Автозагрузка и кэш</string>
+    <string name="settings_other">ПРОЧЕЕ</string>
+    <string name="settings_logout">Выйти из аккаунта</string>
+    <string name="settings_logout_confirm">Выйти из аккаунта?</string>
+    <string name="settings_logout_message">Вы уверены, что хотите выйти?</string>
+    <string name="settings_logout_success">Вы вышли из аккаунта</string>
+    <string name="settings_app_version">О приложении</string>
+    <string name="settings_app_version_value">1.0.0</string>
+    <string name="settings_version_unknown">Неизвестно</string>
+    <string name="settings_instance_url">ovk.to</string>
+
+    <!-- Notification Settings -->
+    <string name="notification_settings_messages">Сообщения</string>
+    <string name="notification_settings_messages_desc">Уведомления о новых сообщениях</string>
+    <string name="notification_settings_likes">Лайки</string>
+    <string name="notification_settings_likes_desc">Уведомления о лайках</string>
+    <string name="notification_settings_comments">Комментарии</string>
+    <string name="notification_settings_comments_desc">Уведомления о комментариях</string>
+    <string name="notification_enabled">Уведомления о сообщениях: %s</string>
+    <string name="notification_likes_enabled">Уведомления о лайках: %s</string>
+    <string name="notification_comments_enabled">Уведомления о комментариях: %s</string>
+    <string name="notification_on">вкл</string>
+    <string name="notification_off">выкл</string>
+
+    <!-- Appearance Settings -->
+    <string name="appearance_theme_mode">Режим темы</string>
+    <string name="appearance_theme_system">Системная</string>
+    <string name="appearance_theme_light">Светлая</string>
+    <string name="appearance_theme_dark">Тёмная</string>
+    <string name="appearance_color_scheme">Цветовая схема</string>
+    <string name="appearance_color_flux_default">Flux (по умолчанию)</string>
+    <string name="appearance_color_flux_blue">Flux (синяя)</string>
+    <string name="appearance_color_material_you">Material You (динамическая)</string>
+    <string name="appearance_color_green">Зелёная</string>
+    <string name="appearance_color_purple">Фиолетовая</string>
+    <string name="appearance_color_red">Красная</string>
+    <string name="appearance_material_you_info">Material You доступен только на Android 12+</string>
+    <string name="appearance_select_theme">Выбор темы</string>
+
+    <!-- Contrast Settings -->
+    <string name="contrast_title">Контрастность</string>
+    <string name="contrast_normal">Обычная</string>
+    <string name="contrast_medium">Средняя</string>
+    <string name="contrast_high">Высокая</string>
+
+    <!-- Data Settings -->
+    <string name="data_clear_cache">Очистить кэш</string>
+    <string name="data_clear_cache_confirm">Очистить кэш?</string>
+    <string name="data_clear_cache_message">Вы уверены, что хотите очистить кэш приложения?</string>
+    <string name="data_cache_cleared">Кэш очищен</string>
+    <string name="data_cache_clear_error">Ошибка при очистке кэша</string>
+    <string name="data_cache_calculating">Вычисление...</string>
+    <string name="data_cache_size_unknown">Неизвестно</string>
+
+    <!-- Account Manager -->
+    <string name="account_manager_title">Управление аккаунтами</string>
+    <string name="account_delete_confirm">Удалить аккаунт?</string>
+    <string name="account_delete_message">Аккаунт %s (%s) будет удален из приложения.\n\nЭто действие нельзя отменить.</string>
+    <string name="account_switched">Переключено на %s</string>
+    <string name="account_encryption_error">Ошибка шифрования. Попробуйте переустановить приложение.</string>
+
+    <!-- SSL / Connection -->
+    <string name="connection_insecure_title">Небезопасное соединение</string>
+    <string name="connection_insecure_message">Вы подключаетесь к серверу без шифрования (HTTP). Ваши данные, включая пароль, будут переданы в открытом виде.</string>
+    <string name="connection_insecure_warning">Это может быть опасно:</string>
+    <string name="ssl_certificate_title">SSL сертификат</string>
+
+    <!-- About App -->
+    <string name="about_app_title">О приложении</string>
+    <string name="about_app_open_link">Не удалось открыть ссылку</string>
+
+    <!-- Instance About -->
+    <string name="about_instance_open_profile">Открытие профиля ID: %d</string>
+
+    <!-- Errors -->
+    <string name="error_loading_profile">Ошибка загрузки профиля: %s</string>
+    <string name="error_loading">Ошибка: %s</string>
+    <string name="error_generic">Произошла ошибка</string>
+    <string name="error_network">Ошибка сети</string>
+    <string name="error_unknown">Неизвестная ошибка</string>
+
+    <!-- Empty States -->
+    <string name="empty_no_results">Ничего не найдено</string>
+    <string name="empty_loading">Загрузка...</string>
+    <string name="empty_default">Пусто</string>
+
+    <!-- Profile -->
+    <string name="profile_sex_male">Мужской</string>
+    <string name="profile_sex_female">Женский</string>
+    <string name="profile_status">Статус</string>
+    <string name="profile_posts_loading_error">Ошибка загрузки постов: %s</string>
+    <string name="profile_posts_refresh_error">Не удалось загрузить новые посты</string>
+
+    <!-- Links -->
+    <string name="link_title">Ссылка</string>
+</resources>

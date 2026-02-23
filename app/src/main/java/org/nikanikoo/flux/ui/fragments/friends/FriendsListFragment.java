@@ -1,0 +1,374 @@
+package org.nikanikoo.flux.ui.fragments.friends;
+
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
+
+import org.nikanikoo.flux.Constants;
+import com.google.android.material.textfield.TextInputEditText;
+
+import org.nikanikoo.flux.data.models.Friend;
+import org.nikanikoo.flux.data.models.FriendRequest;
+import org.nikanikoo.flux.ui.adapters.friends.FriendRequestsAdapter;
+import org.nikanikoo.flux.ui.adapters.friends.FriendsAdapter;
+import org.nikanikoo.flux.data.managers.FriendsManager;
+import org.nikanikoo.flux.R;
+import org.nikanikoo.flux.ui.activities.MainActivity;
+import org.nikanikoo.flux.ui.fragments.messages.ChatFragment;
+import org.nikanikoo.flux.ui.fragments.profile.ProfileFragment;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+public class FriendsListFragment extends Fragment implements FriendsAdapter.OnFriendClickListener, FriendRequestsAdapter.OnRequestActionListener {
+
+    private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefresh;
+    private ProgressBar progressLoading;
+    private LinearLayout emptyState;
+    private TextView emptyTextTitle, emptyTextSubtitle;
+    private TextInputEditText searchEditText;
+    private ChipGroup filterChips;
+    private Chip chipAll, chipOnline, chipRequests;
+    
+    private FriendsAdapter friendsAdapter;
+    private FriendRequestsAdapter requestsAdapter;
+    private FriendsManager friendsManager;
+    private List<Friend> allFriends;
+    private List<Friend> filteredFriends;
+    private List<FriendRequest> friendRequests;
+    private String currentSearchQuery = "";
+    private boolean showOnlineOnly = false;
+    private boolean showRequests = false;
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_friends_list, container, false);
+        
+        friendsManager = FriendsManager.getInstance(requireContext());
+        allFriends = new ArrayList<>();
+        filteredFriends = new ArrayList<>();
+        friendRequests = new ArrayList<>();
+        
+        initViews(view);
+        setupRecyclerView();
+        setupSearch();
+        setupFilters();
+        setupSwipeRefresh();
+        setupToolbarTitle();
+        loadFriends();
+        
+        return view;
+    }
+    
+    private void setupToolbarTitle() {
+        if (getActivity() instanceof MainActivity) {
+            MainActivity mainActivity = (MainActivity) getActivity();
+            mainActivity.setToolbarTitle("Друзья");
+        }
+    }
+
+    private void initViews(View view) {
+        recyclerView = view.findViewById(R.id.recycler_view);
+        swipeRefresh = view.findViewById(R.id.swipe_refresh);
+        progressLoading = view.findViewById(R.id.progress_loading);
+        emptyState = view.findViewById(R.id.empty_state);
+        emptyTextTitle = view.findViewById(R.id.empty_text_title);
+        emptyTextSubtitle = view.findViewById(R.id.empty_text_subtitle);
+        searchEditText = view.findViewById(R.id.search_edit_text);
+        filterChips = view.findViewById(R.id.filter_chips);
+        chipAll = view.findViewById(R.id.chip_all);
+        chipOnline = view.findViewById(R.id.chip_online);
+        chipRequests = view.findViewById(R.id.chip_requests);
+    }
+
+    private void setupRecyclerView() {
+        friendsAdapter = new FriendsAdapter(getContext(), filteredFriends);
+        friendsAdapter.setOnFriendClickListener(this);
+        
+        requestsAdapter = new FriendRequestsAdapter(getContext(), friendRequests);
+        requestsAdapter.setOnRequestActionListener(this);
+        
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(friendsAdapter); // По умолчанию показываем друзей
+    }
+
+    private void setupSearch() {
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                currentSearchQuery = s.toString().toLowerCase(Locale.ROOT).trim();
+                if (!showRequests) {
+                    filterFriends();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+    }
+
+    private void setupFilters() {
+        filterChips.setOnCheckedStateChangeListener((group, checkedIds) -> {
+            if (checkedIds.contains(R.id.chip_requests)) {
+                showRequests = true;
+                showOnlineOnly = false;
+                switchToRequests();
+            } else if (checkedIds.contains(R.id.chip_online)) {
+                showRequests = false;
+                showOnlineOnly = true;
+                switchToFriends();
+                filterFriends();
+            } else {
+                showRequests = false;
+                showOnlineOnly = false;
+                switchToFriends();
+                filterFriends();
+            }
+        });
+    }
+
+    private void setupSwipeRefresh() {
+        swipeRefresh.setOnRefreshListener(() -> {
+            if (showRequests) {
+                loadFriendRequests();
+            } else {
+                loadFriends();
+            }
+        });
+    }
+
+    private void switchToFriends() {
+        recyclerView.setAdapter(friendsAdapter);
+        searchEditText.setVisibility(View.VISIBLE);
+        updateEmptyStateTexts("Друзья не найдены", "Попробуйте изменить параметры поиска");
+    }
+
+    private void switchToRequests() {
+        recyclerView.setAdapter(requestsAdapter);
+        searchEditText.setVisibility(View.GONE);
+        updateEmptyStateTexts("Нет заявок в друзья", "Новые заявки появятся здесь");
+        loadFriendRequests();
+    }
+
+    private void updateEmptyStateTexts(String title, String subtitle) {
+        emptyTextTitle.setText(title);
+        emptyTextSubtitle.setText(subtitle);
+    }
+
+    private void loadFriends() {
+        showLoading();
+        
+        friendsManager.getFriends(Constants.Api.FRIENDS_PER_PAGE, 0, new FriendsManager.FriendsCallback() {
+            @Override
+            public void onSuccess(List<Friend> friends) {
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(() -> {
+                        hideLoading();
+                        allFriends.clear();
+                        allFriends.addAll(friends);
+                        if (!showRequests) {
+                            filterFriends();
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(() -> {
+                        hideLoading();
+                        Toast.makeText(getContext(), "Ошибка загрузки друзей: " + error, Toast.LENGTH_SHORT).show();
+                        updateEmptyState();
+                    });
+                }
+            }
+        });
+    }
+
+    private void loadFriendRequests() {
+        showLoading();
+        
+        friendsManager.getFriendRequests(new FriendsManager.FriendRequestsCallback() {
+            @Override
+            public void onSuccess(List<FriendRequest> requests) {
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(() -> {
+                        hideLoading();
+                        friendRequests.clear();
+                        friendRequests.addAll(requests);
+                        requestsAdapter.notifyDataSetChanged();
+                        updateEmptyState();
+                    });
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(() -> {
+                        hideLoading();
+                        Toast.makeText(getContext(), "Ошибка загрузки заявок: " + error, Toast.LENGTH_SHORT).show();
+                        updateEmptyState();
+                    });
+                }
+            }
+        });
+    }
+
+    private void filterFriends() {
+        filteredFriends.clear();
+        
+        for (Friend friend : allFriends) {
+            boolean matchesSearch = currentSearchQuery.isEmpty() || 
+                    friend.getFullName().toLowerCase(Locale.ROOT).contains(currentSearchQuery);
+            boolean matchesFilter = !showOnlineOnly || friend.isOnline();
+            
+            if (matchesSearch && matchesFilter) {
+                filteredFriends.add(friend);
+            }
+        }
+        
+        friendsAdapter.notifyDataSetChanged();
+        updateEmptyState();
+    }
+
+    private void updateEmptyState() {
+        boolean isEmpty = showRequests ? friendRequests.isEmpty() : filteredFriends.isEmpty();
+        
+        if (isEmpty) {
+            emptyState.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        } else {
+            emptyState.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    // FriendsAdapter.OnFriendClickListener
+    @Override
+    public void onFriendClick(Friend friend) {
+        ProfileFragment profileFragment = ProfileFragment.newInstanceWithId(friend.getId(), friend.getFullName());
+        
+        if (getParentFragmentManager() != null) {
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, profileFragment)
+                    .addToBackStack("friend_profile")
+                    .commit();
+        }
+    }
+
+    @Override
+    public void onMessageClick(Friend friend) {
+        ChatFragment chatFragment = ChatFragment.newInstance(friend.getId(), friend.getFullName());
+        
+        if (getParentFragmentManager() != null) {
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, chatFragment)
+                    .addToBackStack("friend_chat")
+                    .commit();
+        }
+    }
+
+    // FriendRequestsAdapter.OnRequestActionListener
+    @Override
+    public void onAcceptRequest(FriendRequest request) {
+        friendsManager.acceptFriendRequest(request.getUserId(), new FriendsManager.ActionCallback() {
+            @Override
+            public void onSuccess() {
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(() -> {
+                        requestsAdapter.removeRequest(request);
+                        Toast.makeText(getContext(), "Заявка принята", Toast.LENGTH_SHORT).show();
+                        updateEmptyState();
+                        // Обновляем список друзей
+                        loadFriends();
+                    });
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(() -> {
+                        Toast.makeText(getContext(), "Ошибка: " + error, Toast.LENGTH_SHORT).show();
+                    });
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onDeclineRequest(FriendRequest request) {
+        friendsManager.declineFriendRequest(request.getUserId(), new FriendsManager.ActionCallback() {
+            @Override
+            public void onSuccess() {
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(() -> {
+                        requestsAdapter.removeRequest(request);
+                        Toast.makeText(getContext(), "Заявка отклонена", Toast.LENGTH_SHORT).show();
+                        updateEmptyState();
+                    });
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(() -> {
+                        Toast.makeText(getContext(), "Ошибка: " + error, Toast.LENGTH_SHORT).show();
+                    });
+                }
+            }
+        });
+    }
+
+    public void updateUserOnlineStatus(int userId, boolean isOnline) {
+        for (Friend friend : allFriends) {
+            if (friend.getId() == userId) {
+                friend.setOnline(isOnline);
+                break;
+            }
+        }
+        if (!showRequests) {
+            filterFriends();
+        }
+    }
+
+    private void showLoading() {
+        boolean isEmpty = showRequests ? friendRequests.isEmpty() : filteredFriends.isEmpty();
+        if (isEmpty) {
+            progressLoading.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+            emptyState.setVisibility(View.GONE);
+        }
+        swipeRefresh.setRefreshing(false);
+    }
+
+    private void hideLoading() {
+        progressLoading.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+        swipeRefresh.setRefreshing(false);
+    }
+}

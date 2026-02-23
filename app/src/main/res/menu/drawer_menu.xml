@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/drawer_news"
+            android:icon="@drawable/ic_news"
+            android:title="@string/nav_news"/>
+        <item
+            android:id="@+id/drawer_notification"
+            android:icon="@drawable/ic_notification"
+            android:title="@string/nav_notifications"/>
+        <item
+            android:id="@+id/drawer_friends"
+            android:icon="@drawable/ic_friends"
+            android:title="@string/nav_friends"/>
+        <item
+            android:id="@+id/drawer_photos"
+            android:icon="@drawable/ic_photos"
+            android:title="@string/nav_photos"/>
+        <item
+            android:id="@+id/drawer_videos"
+            android:icon="@drawable/ic_videos"
+            android:title="@string/nav_videos"/>
+        <item
+            android:id="@+id/drawer_audio"
+            android:icon="@drawable/ic_music"
+            android:title="@string/nav_music"/>
+        <item
+            android:id="@+id/drawer_messages"
+            android:icon="@drawable/ic_messages"
+            android:title="@string/nav_messages"/>
+        <item
+            android:id="@+id/drawer_groups"
+            android:icon="@drawable/ic_groups"
+            android:title="@string/nav_groups"/>
+        <item
+            android:id="@+id/drawer_notes"
+            android:icon="@drawable/ic_notes"
+            android:title="@string/nav_notes"/>
+        <item
+            android:id="@+id/drawer_settings"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/nav_settings"/>
+    </group>
+</menu>

@@ -1,0 +1,323 @@
+<resources>
+    <!-- App Name -->
+    <string name="app_name">OpenVK Flux</string>
+
+    <!-- Common -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="loading">Loading...</string>
+    <string name="error">Error</string>
+    <string name="success">Success</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="close">Close</string>
+    <string name="back">Back</string>
+    <string name="search">Search</string>
+    <string name="search_hint">Search...</string>
+    <string name="refresh">Refresh</string>
+    <string name="share">Share</string>
+    <string name="copy">Copy</string>
+    <string name="link_copied">Link copied</string>
+
+    <!-- Navigation -->
+    <string name="open_drawer">Open menu</string>
+    <string name="close_drawer">Close menu</string>
+    <string name="nav_news">News</string>
+    <string name="nav_messages">Messages</string>
+    <string name="nav_friends">Friends</string>
+    <string name="nav_groups">Groups</string>
+    <string name="nav_photos">Photos</string>
+    <string name="nav_videos">Videos</string>
+    <string name="nav_music">Music</string>
+    <string name="nav_notes">Notes</string>
+    <string name="nav_notifications">Notifications</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Login -->
+    <string name="login_title">Sign in</string>
+    <string name="login_welcome">Welcome!</string>
+    <string name="instance_hint">Instance (e.g., ovk.to)</string>
+    <string name="instance_helper">Enter OpenVK instance address</string>
+    <string name="instance_address_hint">Enter instance address</string>
+    <string name="login_hint">Login or email</string>
+    <string name="password_hint">Password</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="btn_login">Sign in</string>
+    <string name="btn_login_loading">Signing in...</string>
+    <string name="no_account">No account?</string>
+    <string name="register">Register</string>
+    <string name="login_success">You have successfully signed in!</string>
+    <string name="select_instance">Select instance</string>
+    <string name="instance_address">Address: %s</string>
+    <string name="app_openvk">OpenVK</string>
+
+    <!-- Two Factor -->
+    <string name="two_factor_title">Two-factor authentication</string>
+    <string name="two_factor_subtitle">Sign in confirmation</string>
+    <string name="two_factor_description">Enter the code from SMS or authenticator app</string>
+    <string name="two_factor_code_hint">Confirmation code</string>
+    <string name="btn_verify">Confirm</string>
+    <string name="btn_verify_loading">Verifying...</string>
+    <string name="resend_code">Resend code</string>
+    <string name="use_backup_code">Use backup code</string>
+    <string name="two_factor_verified">Code verified</string>
+
+    <!-- Instance Settings -->
+    <string name="instance_settings">Instance settings</string>
+    <string name="current_instance_loading">Loading...</string>
+    <string name="current_instance_format">Current instance: %s</string>
+    <string name="current_instance_hint">New instance</string>
+    <string name="instance_change_helper">Changing instance will require re-login</string>
+    <string name="save_instance">Save instance</string>
+    <string name="instance_saved">Instance saved</string>
+    <string name="instance_changed_logout">Instance changed. Please sign in again</string>
+    <string name="about_instance">About instance</string>
+    <string name="instance_id">ID: %d</string>
+    <string name="instance_version">Version: %s</string>
+    <string name="instance_users">Users</string>
+    <string name="instance_online">Online</string>
+    <string name="instance_active">Active</string>
+    <string name="instance_groups">Groups</string>
+
+    <!-- Posts -->
+    <string name="post_author">Post author</string>
+    <string name="post_content">Post content</string>
+    <string name="post_original_author">Original post author</string>
+    <string name="post_original_content">Original post content</string>
+    <string name="post_time_ago">%s ago</string>
+    <string name="post_likes">Likes</string>
+    <string name="post_comments">Comments</string>
+    <string name="post_shares">Share</string>
+    <string name="post_share_from">Share post from %s</string>
+    <string name="post_like_error">Cannot like this post</string>
+    <string name="post_edit_not_supported">Post editing not yet implemented</string>
+    <string name="post_delete_not_supported">Post deletion not yet implemented</string>
+    <string name="post_pin_not_supported">Post pinning not yet implemented</string>
+    <string name="post_delete_confirm">Delete post?</string>
+    <string name="post_delete_message">This action cannot be undone</string>
+    <string name="post_published">Post published!</string>
+    <string name="post_publish_error">Publishing error: %s</string>
+    <string name="post_publishing">Publishing...</string>
+
+    <!-- Create Post -->
+    <string name="post_create_title">Create post</string>
+    <string name="create_post_whats_new">What\'s new?</string>
+    <string name="create_post_photo">Photo</string>
+    <string name="create_post_publish">Publish</string>
+    <string name="create_post_author_loading">Loading...</string>
+
+    <!-- Comments -->
+    <string name="comments_title">Comments</string>
+    <string name="comments_write">Write a comment...</string>
+    <string name="comments_loading_error">Error loading comments: %s</string>
+    <string name="comments_send_error">Error sending comment: %s</string>
+    <string name="comments_add_error">Enter comment text or select an image</string>
+    <string name="comments_cannot_load">Cannot load comments</string>
+    <string name="comments_updated">Comments updated</string>
+    <string name="comments_added">Comment added</string>
+    <string name="comments_image_selected">Image selected</string>
+    <string name="comments_post_not_found">Error: post not found</string>
+
+    <!-- News -->
+    <string name="news_loading_error">Error loading news: %s</string>
+    <string name="news_refresh_error">Could not load new posts</string>
+    <string name="news_public_loading_error">Error loading public posts: %s</string>
+    <string name="news_select_type">Select news type</string>
+    <string name="news_create_post">Create post</string>
+
+    <!-- Messages -->
+    <string name="messages_title">Messages</string>
+    <string name="messages_loading_error">Error loading dialogues: %s</string>
+    <string name="chat_title">Chat</string>
+    <string name="chat_message_hint">Enter message...</string>
+    <string name="chat_send">Send</string>
+    <string name="chat_loading_error">Error loading messages: %s</string>
+    <string name="chat_send_error">Error sending: %s</string>
+    <string name="message_incoming">Incoming message</string>
+    <string name="message_outgoing">Outgoing message</string>
+    <string name="message_time">%s</string>
+
+    <!-- Friends -->
+    <string name="friends_title">Friends</string>
+    <string name="friends_search">Search friends...</string>
+    <string name="friends_loading_error">Error loading friends: %s</string>
+    <string name="friends_not_found">No friends found</string>
+    <string name="friends_common">%d common friends</string>
+    <string name="friend_request_title">Friend request</string>
+    <string name="friend_accept">Accept</string>
+    <string name="friend_decline">Decline</string>
+    <string name="friend_request_accepted">Request accepted</string>
+    <string name="friend_request_declined">Request declined</string>
+    <string name="friend_requests_loading_error">Error loading requests: %s</string>
+    <string name="friend_send_message">Send message</string>
+
+    <!-- Groups -->
+    <string name="groups_title">Groups</string>
+    <string name="groups_search">Search groups...</string>
+    <string name="groups_loading_error">Error loading groups: %s</string>
+    <string name="group_name">Group name</string>
+    <string name="group_type">Group</string>
+    <string name="group_members">%d members</string>
+    <string name="group_description">Group description</string>
+    <string name="group_members_search">Search members</string>
+    <string name="group_members_loading_error">Error loading members: %s</string>
+    <string name="group_members_not_found">No members found</string>
+    <string name="group_joined">You joined the group</string>
+    <string name="group_left">You left the group</string>
+    <string name="group_load_error">Error loading group: %s</string>
+
+    <!-- Photos -->
+    <string name="photos_title">Photos</string>
+    <string name="photo_viewer">Photo</string>
+    <string name="photo_more_images">+%d</string>
+
+    <!-- Videos -->
+    <string name="videos_title">Videos</string>
+    <string name="video_preview">Video preview</string>
+    <string name="video_play">Play</string>
+    <string name="video_url_not_found">Video URL not found</string>
+    <string name="video_forward">%d »</string>
+    <string name="video_back">« %d</string>
+
+    <!-- Audio -->
+    <string name="audio_title">Track title</string>
+    <string name="audio_artist">Artist</string>
+    <string name="audio_playlist">Playlist</string>
+    <string name="audio_track_name">Title</string>
+    <string name="audio_no_tracks">You have no audio tracks yet</string>
+    <string name="audio_search_error">Search error: %s</string>
+    <string name="audio_nothing_found">Nothing found</string>
+    <string name="audio_removed">Removed from audio</string>
+    <string name="audio_remove_error">Remove error: %s</string>
+    <string name="audio_added">Added to audio</string>
+    <string name="audio_add">Add</string>
+    <string name="audio_more">More</string>
+    <string name="audio_no_title">No title</string>
+
+    <!-- Music Player -->
+    <string name="player_previous">Previous track</string>
+    <string name="player_play_pause">Play/Pause</string>
+    <string name="player_next">Next track</string>
+    <string name="player_fullscreen">Fullscreen</string>
+    <string name="mini_player_music">Music</string>
+    <string name="player_time_current">0:00</string>
+    <string name="player_time_total">0:00</string>
+    <string name="player_track_duration">%s</string>
+
+    <!-- Notifications -->
+    <string name="notifications_title">Notifications</string>
+    <string name="notifications_loading_error">Error loading archived notifications: %s</string>
+    <string name="notifications_all_read">All notifications marked as read</string>
+    <string name="notifications_mark_all_read">Mark all as read</string>
+    <string name="notification_action">User performed action</string>
+    <string name="notification_time_ago">%s ago</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_accounts">Account management</string>
+    <string name="settings_accounts_desc">Switch between accounts</string>
+    <string name="settings_appearance">Appearance</string>
+    <string name="settings_appearance_desc">Themes, colors and contrast</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_notifications_desc">Notification settings</string>
+    <string name="settings_data">Data and storage</string>
+    <string name="settings_data_desc">Autoload and cache</string>
+    <string name="settings_other">OTHER</string>
+    <string name="settings_logout">Sign out</string>
+    <string name="settings_logout_confirm">Sign out?</string>
+    <string name="settings_logout_message">Are you sure you want to sign out?</string>
+    <string name="settings_logout_success">You have signed out</string>
+    <string name="settings_app_version">About app</string>
+    <string name="settings_app_version_value">1.0.0</string>
+    <string name="settings_version_unknown">Unknown</string>
+    <string name="settings_instance_url">ovk.to</string>
+
+    <!-- Notification Settings -->
+    <string name="notification_settings_messages">Messages</string>
+    <string name="notification_settings_messages_desc">New message notifications</string>
+    <string name="notification_settings_likes">Likes</string>
+    <string name="notification_settings_likes_desc">Like notifications</string>
+    <string name="notification_settings_comments">Comments</string>
+    <string name="notification_settings_comments_desc">Comment notifications</string>
+    <string name="notification_enabled">Message notifications: %s</string>
+    <string name="notification_likes_enabled">Like notifications: %s</string>
+    <string name="notification_comments_enabled">Comment notifications: %s</string>
+    <string name="notification_on">on</string>
+    <string name="notification_off">off</string>
+
+    <!-- Appearance Settings -->
+    <string name="appearance_theme_mode">Theme mode</string>
+    <string name="appearance_theme_system">System</string>
+    <string name="appearance_theme_light">Light</string>
+    <string name="appearance_theme_dark">Dark</string>
+    <string name="appearance_color_scheme">Color scheme</string>
+    <string name="appearance_color_flux_default">Flux (default)</string>
+    <string name="appearance_color_flux_blue">Flux (blue)</string>
+    <string name="appearance_color_material_you">Material You (dynamic)</string>
+    <string name="appearance_color_green">Green</string>
+    <string name="appearance_color_purple">Purple</string>
+    <string name="appearance_color_red">Red</string>
+    <string name="appearance_material_you_info">Material You is only available on Android 12+</string>
+    <string name="appearance_select_theme">Select theme</string>
+
+    <!-- Contrast Settings -->
+    <string name="contrast_title">Contrast</string>
+    <string name="contrast_normal">Normal</string>
+    <string name="contrast_medium">Medium</string>
+    <string name="contrast_high">High</string>
+
+    <!-- Data Settings -->
+    <string name="data_clear_cache">Clear cache</string>
+    <string name="data_clear_cache_confirm">Clear cache?</string>
+    <string name="data_clear_cache_message">Are you sure you want to clear the app cache?</string>
+    <string name="data_cache_cleared">Cache cleared</string>
+    <string name="data_cache_clear_error">Error clearing cache</string>
+    <string name="data_cache_calculating">Calculating...</string>
+    <string name="data_cache_size_unknown">Unknown</string>
+
+    <!-- Account Manager -->
+    <string name="account_manager_title">Account management</string>
+    <string name="account_delete_confirm">Delete account?</string>
+    <string name="account_delete_message">Account %s (%s) will be removed from the app.\n\nThis action cannot be undone.</string>
+    <string name="account_switched">Switched to %s</string>
+    <string name="account_encryption_error">Encryption error. Try reinstalling the app.</string>
+
+    <!-- SSL / Connection -->
+    <string name="connection_insecure_title">Insecure connection</string>
+    <string name="connection_insecure_message">You are connecting to the server without encryption (HTTP). Your data, including password, will be transmitted in plain text.</string>
+    <string name="connection_insecure_warning">This may be dangerous:</string>
+    <string name="ssl_certificate_title">SSL certificate</string>
+
+    <!-- About App -->
+    <string name="about_app_title">About app</string>
+    <string name="about_app_open_link">Could not open link</string>
+
+    <!-- Instance About -->
+    <string name="about_instance_open_profile">Opening profile ID: %d</string>
+
+    <!-- Errors -->
+    <string name="error_loading_profile">Error loading profile: %s</string>
+    <string name="error_loading">Error: %s</string>
+    <string name="error_generic">An error occurred</string>
+    <string name="error_network">Network error</string>
+    <string name="error_unknown">Unknown error</string>
+
+    <!-- Empty States -->
+    <string name="empty_no_results">Nothing found</string>
+    <string name="empty_loading">Loading...</string>
+    <string name="empty_default">Empty</string>
+
+    <!-- Profile -->
+    <string name="profile_sex_male">Male</string>
+    <string name="profile_sex_female">Female</string>
+    <string name="profile_status">Status</string>
+    <string name="profile_posts_loading_error">Error loading posts: %s</string>
+    <string name="profile_posts_refresh_error">Could not load new posts</string>
+
+    <!-- Links -->
+    <string name="link_title">Link</string>
+</resources>

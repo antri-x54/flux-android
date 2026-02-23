@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp">
+
+    <!-- Коллаж для 2 изображений -->
+    <LinearLayout
+        android:id="@+id/collage_2_images"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/image_1_of_2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginEnd="2dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/rounded_image_background" />
+
+        <ImageView
+            android:id="@+id/image_2_of_2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginStart="2dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/rounded_image_background" />
+
+    </LinearLayout>
+
+    <!-- Коллаж для 3 изображений -->
+    <LinearLayout
+        android:id="@+id/collage_3_images"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/image_1_of_3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginEnd="2dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/rounded_image_background" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="2dp">
+
+            <ImageView
+                android:id="@+id/image_2_of_3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="2dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/rounded_image_background" />
+
+            <ImageView
+                android:id="@+id/image_3_of_3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="2dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/rounded_image_background" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Коллаж для 4 изображений -->
+    <LinearLayout
+        android:id="@+id/collage_4_images"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_marginBottom="2dp">
+
+            <ImageView
+                android:id="@+id/image_1_of_4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginEnd="2dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/rounded_image_background" />
+
+            <ImageView
+                android:id="@+id/image_2_of_4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginStart="2dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/rounded_image_background" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_marginTop="2dp">
+
+            <ImageView
+                android:id="@+id/image_3_of_4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginEnd="2dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/rounded_image_background" />
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginStart="2dp">
+
+                <ImageView
+                    android:id="@+id/image_4_of_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/rounded_image_background" />
+
+                <!-- Overlay для показа количества дополнительных изображений -->
+                <View
+                    android:id="@+id/more_images_overlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#80000000"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/more_images_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="+5"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

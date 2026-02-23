@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Medium contrast light variant -->
+    <style name="Theme.Flux.MediumContrast" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">#143665</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorPrimaryContainer">#516DA0</item>
+        <item name="colorOnPrimaryContainer">#FFFFFF</item>
+
+        <item name="colorSecondary">#2E3647</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+        <item name="colorSecondaryContainer">#656D80</item>
+        <item name="colorOnSecondaryContainer">#FFFFFF</item>
+
+        <item name="colorTertiary">#003860</item>
+        <item name="colorOnTertiary">#FFFFFF</item>
+        <item name="colorTertiaryContainer">#44709D</item>
+        <item name="colorOnTertiaryContainer">#FFFFFF</item>
+
+        <item name="colorError">#740006</item>
+        <item name="colorErrorContainer">#CF2C27</item>
+        <item name="colorOnError">#FFFFFF</item>
+        <item name="colorOnErrorContainer">#FFFFFF</item>
+
+        <item name="android:colorBackground">#F9F9FF</item>
+        <item name="colorOnBackground">#191C20</item>
+        <item name="colorSurface">#F9F9FF</item>
+        <item name="colorOnSurface">#0F1116</item>
+
+        <item name="colorSurfaceVariant">#E0E2EC</item>
+        <item name="colorOnSurfaceVariant">#33363E</item>
+        <item name="colorOutline">#4F525A</item>
+
+        <item name="colorSurfaceInverse">#2E3036</item>
+        <item name="colorOnSurfaceInverse">#F0F0F7</item>
+        <item name="colorPrimaryInverse">#ABC7FF</item>
+
+        <!-- Surface containers (примерные значения из схемы) -->
+        <item name="colorSurfaceDim">#C6C6CD</item>
+        <item name="colorSurfaceContainerLowest">#FFFFFF</item>
+        <item name="colorSurfaceContainer">#E7E8EE</item>
+        <item name="colorSurfaceContainerHighest">#D1D1D8</item>
+
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+    </style>
+
+</resources>

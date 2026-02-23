@@ -1,0 +1,212 @@
+package org.nikanikoo.flux.ui.activities;
+
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.widget.ImageButton;
+import android.widget.SeekBar;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import org.nikanikoo.flux.R;
+import org.nikanikoo.flux.data.models.Audio;
+import org.nikanikoo.flux.services.AudioPlayerService;
+import org.nikanikoo.flux.utils.Logger;
+import org.nikanikoo.flux.utils.ThemeManager;
+
+import java.util.Locale;
+
+public class AudioPlayerActivity extends AppCompatActivity implements AudioPlayerService.PlayerCallback {
+
+    private static final String TAG = "AudioPlayerActivity";
+
+    private AudioPlayerService playerService;
+    private boolean serviceBound = false;
+
+    private TextView trackTitle;
+    private TextView trackArtist;
+    private TextView currentTime;
+    private TextView totalTime;
+    private SeekBar seekBar;
+    private ImageButton btnPlayPause;
+    private ImageButton btnPrevious;
+    private ImageButton btnNext;
+
+    private boolean isUserSeeking = false;
+
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            AudioPlayerService.AudioBinder binder = (AudioPlayerService.AudioBinder) service;
+            playerService = binder.getService();
+            serviceBound = true;
+            playerService.registerCallback(AudioPlayerActivity.this);
+            updateUI();
+            Logger.d(TAG, "Service connected");
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            serviceBound = false;
+            Logger.d(TAG, "Service disconnected");
+        }
+    };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_audio_player);
+        
+        ThemeManager.applySystemBarsAppearance(this);
+        
+        initViews();
+        setupToolbar();
+        setupControls();
+        bindService();
+    }
+
+    private void initViews() {
+        trackTitle = findViewById(R.id.track_title);
+        trackArtist = findViewById(R.id.track_artist);
+        currentTime = findViewById(R.id.current_time);
+        totalTime = findViewById(R.id.total_time);
+        seekBar = findViewById(R.id.seek_bar);
+        btnPlayPause = findViewById(R.id.btn_play_pause);
+        btnPrevious = findViewById(R.id.btn_previous);
+        btnNext = findViewById(R.id.btn_next);
+    }
+
+    private void setupToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        toolbar.setNavigationOnClickListener(v -> finish());
+    }
+
+    private void setupControls() {
+        btnPlayPause.setOnClickListener(v -> {
+            if (serviceBound) {
+                if (playerService.isPlaying()) {
+                    playerService.pause();
+                } else {
+                    playerService.play();
+                }
+            }
+        });
+
+        btnPrevious.setOnClickListener(v -> {
+            if (serviceBound) {
+                playerService.previous();
+            }
+        });
+
+        btnNext.setOnClickListener(v -> {
+            if (serviceBound) {
+                playerService.next();
+            }
+        });
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser) {
+                    currentTime.setText(formatTime(progress));
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                isUserSeeking = true;
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                if (serviceBound) {
+                    playerService.seekTo(seekBar.getProgress());
+                }
+                isUserSeeking = false;
+            }
+        });
+    }
+
+    private void bindService() {
+        Intent intent = new Intent(this, AudioPlayerService.class);
+        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    private void updateUI() {
+        if (!serviceBound) return;
+
+        Audio currentAudio = playerService.getCurrentAudio();
+        if (currentAudio != null) {
+            trackTitle.setText(currentAudio.getTitle());
+            trackArtist.setText(currentAudio.getArtist());
+        }
+
+        updatePlayPauseButton();
+    }
+
+    private void updatePlayPauseButton() {
+        if (serviceBound && playerService.isPlaying()) {
+            btnPlayPause.setImageResource(R.drawable.ic_pause);
+        } else {
+            btnPlayPause.setImageResource(R.drawable.ic_play);
+        }
+    }
+
+    @Override
+    public void onPlaybackStateChanged(boolean isPlaying) {
+        runOnUiThread(this::updatePlayPauseButton);
+    }
+
+    @Override
+    public void onTrackChanged(Audio audio, int position) {
+        runOnUiThread(() -> {
+            trackTitle.setText(audio.getTitle());
+            trackArtist.setText(audio.getArtist());
+        });
+    }
+
+    @Override
+    public void onProgressUpdate(int currentPosition, int duration) {
+        runOnUiThread(() -> {
+            if (!isUserSeeking) {
+                seekBar.setMax(duration);
+                seekBar.setProgress(currentPosition);
+                currentTime.setText(formatTime(currentPosition));
+                totalTime.setText(formatTime(duration));
+            }
+        });
+    }
+
+    @Override
+    public void onError(String error) {
+        runOnUiThread(() -> {
+            Logger.e(TAG, "Playback error: " + error);
+        });
+    }
+
+    private String formatTime(int milliseconds) {
+        int seconds = milliseconds / 1000;
+        int minutes = seconds / 60;
+        seconds = seconds % 60;
+        return String.format(Locale.ROOT, "%d:%02d", minutes, seconds);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (serviceBound) {
+            playerService.unregisterCallback(this);
+            unbindService(serviceConnection);
+            serviceBound = false;
+        }
+    }
+}

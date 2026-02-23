@@ -1,0 +1,361 @@
+package org.nikanikoo.flux.ui.activities;
+
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.color.DynamicColors;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
+import org.json.JSONObject;
+import org.nikanikoo.flux.data.managers.api.OpenVKApi;
+import org.nikanikoo.flux.data.managers.ProfileManager;
+import org.nikanikoo.flux.data.models.UserProfile;
+import org.nikanikoo.flux.R;
+import org.nikanikoo.flux.security.AccountManager;
+import org.nikanikoo.flux.utils.ThemeManager;
+
+public class LoginActivity extends AppCompatActivity {
+
+    private AutoCompleteTextView spinnerInstance;
+    private TextInputLayout layoutCustomInstance;
+    private TextInputEditText editCustomInstance;
+    private TextInputEditText editLogin;
+    private TextInputEditText editPassword;
+    private MaterialButton btnLogin;
+
+    private static final String[] INSTANCE_URLS = {
+        "https://api.openvk.org",
+        "http://openvk.xyz",
+        "https://api.vepurovk.fun",
+        "https://vepurovk.xyz"
+    };
+    
+    private static final String[] INSTANCE_DISPLAY_NAMES = {
+        "api.openvk.org",
+        "openvk.xyz",
+        "api.vepurovk.fun",
+        "vepurovk.xyz",
+        "Ввести вручную"
+    };
+    
+    private static final String CUSTOM_OPTION = "Ввести вручную";
+    private int selectedInstanceIndex = 0;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        ThemeManager themeManager = ThemeManager.getInstance(this);
+        themeManager.applyThemeToActivity(this);
+        super.onCreate(savedInstanceState);
+        
+        setContentView(R.layout.activity_login);
+        
+        ThemeManager.applySystemBarsAppearance(this);
+
+        if (themeManager.getThemeStyle() == ThemeManager.STYLE_MATERIAL_YOU && 
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            DynamicColors.applyToActivityIfAvailable(this);
+        }
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        spinnerInstance = findViewById(R.id.spinner_instance);
+        layoutCustomInstance = findViewById(R.id.layout_custom_instance);
+        editCustomInstance = findViewById(R.id.edit_custom_instance);
+        editLogin = findViewById(R.id.edit_login);
+        editPassword = findViewById(R.id.edit_password);
+        btnLogin = findViewById(R.id.btn_login);
+
+        setupInstanceSpinner();
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                performLogin();
+            }
+        });
+
+        findViewById(R.id.text_forgot_password).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(LoginActivity.this, "Закрыто", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        findViewById(R.id.text_register).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(LoginActivity.this, "Закрыто", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    
+    private void setupInstanceSpinner() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+            this,
+            android.R.layout.simple_dropdown_item_1line,
+            INSTANCE_DISPLAY_NAMES
+        );
+        
+        spinnerInstance.setAdapter(adapter);
+
+        spinnerInstance.setText(INSTANCE_DISPLAY_NAMES[0], false);
+        selectedInstanceIndex = 0;
+        
+        spinnerInstance.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedInstanceIndex = position;
+
+                if (INSTANCE_DISPLAY_NAMES[position].equals(CUSTOM_OPTION)) {
+                    layoutCustomInstance.setVisibility(View.VISIBLE);
+                    editCustomInstance.requestFocus();
+                } else {
+                    layoutCustomInstance.setVisibility(View.GONE);
+                }
+            }
+        });
+    }
+
+    private void performLogin() {
+        String instance = getSelectedInstance();
+        String login = editLogin.getText().toString().trim();
+        String password = editPassword.getText().toString().trim();
+
+        if (instance.isEmpty()) {
+            Toast.makeText(this, "Выберите инстанс", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (login.isEmpty()) {
+            editLogin.setError("Введите почту");
+            editLogin.requestFocus();
+            return;
+        }
+        if (password.isEmpty()) {
+            editPassword.setError("Введите пароль");
+            editPassword.requestFocus();
+            return;
+        }
+
+        final String formattedInstance = formatInstanceUrl(instance);
+
+        if (isInsecureConnection(formattedInstance)) {
+            showInsecureConnectionDialog(formattedInstance, login, password);
+            return;
+        }
+
+        proceedWithLogin(formattedInstance, login, password);
+    }
+    
+    private String getSelectedInstance() {
+        if (INSTANCE_DISPLAY_NAMES[selectedInstanceIndex].equals(CUSTOM_OPTION)) {
+            String customInstance = editCustomInstance.getText().toString().trim();
+            if (customInstance.isEmpty()) {
+                editCustomInstance.setError("Введите адрес инстанса");
+                return "";
+            }
+            return customInstance;
+        } else {
+            return INSTANCE_URLS[selectedInstanceIndex];
+        }
+    }
+
+    private String formatInstanceUrl(String instance) {
+        if (instance == null || instance.trim().isEmpty()) {
+            return "https://api.openvk.org"; // По умолчанию
+        }
+        
+        instance = instance.trim();
+
+        if (instance.startsWith("http://") || instance.startsWith("https://")) {
+            return instance;
+        }
+
+        return "https://" + instance;
+    }
+
+    private boolean isInsecureConnection(String instanceUrl) {
+        return instanceUrl.startsWith("http://");
+    }
+
+    private void showInsecureConnectionDialog(final String instance, final String login, final String password) {
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_insecure_connection, null);
+
+        TextView urlText = new TextView(this);
+        urlText.setText("\nАдрес: " + instance);
+        urlText.setTextSize(14);
+        urlText.setTextColor(getResources().getColor(android.R.color.darker_gray));
+        
+        new MaterialAlertDialogBuilder(this)
+            .setView(dialogView)
+            .setPositiveButton("Все равно войти", (dialog, which) -> {
+                proceedWithLogin(instance, login, password);
+            })
+            .setNegativeButton("Отмена", (dialog, which) -> {
+                dialog.dismiss();
+                btnLogin.setEnabled(true);
+                btnLogin.setText("Войти");
+            })
+            .setCancelable(false)
+            .show();
+    }
+
+    private void proceedWithLogin(String instance, String login, String password) {
+        OpenVKApi.resetInstance();
+        
+        OpenVKApi.getInstance(this).saveInstance(instance);
+        
+        btnLogin.setEnabled(false);
+        btnLogin.setText("Входим...");
+
+        OpenVKApi.getInstance(this).login(login, password, new OpenVKApi.LoginCallback() {
+            @Override
+            public void onSuccess(String token) {
+                runOnUiThread(() -> {
+                    OpenVKApi.getInstance(LoginActivity.this).saveToken(token);
+                    ProfileManager.getInstance(LoginActivity.this).clearCache();
+
+                    ProfileManager.getInstance(LoginActivity.this).loadProfile(false, false, new ProfileManager.ProfileCallback() {
+                        @Override
+                        public void onSuccess(UserProfile profile) {
+                            String instance = OpenVKApi.getInstance(LoginActivity.this).getBaseUrl();
+                            AccountManager.getInstance(LoginActivity.this).addAccount(token, instance, profile);
+                            
+                            Toast.makeText(LoginActivity.this, "Вы успешно вошли в аккаунт!", Toast.LENGTH_SHORT).show();
+                            
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            if (getIntent().getBooleanExtra("add_account", false)) {
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            }
+                            startActivity(intent);
+                            finish();
+                        }
+                        
+                        @Override
+                        public void onError(String error) {
+                            String instance = OpenVKApi.getInstance(LoginActivity.this).getBaseUrl();
+                            UserProfile dummyProfile = new UserProfile();
+                            dummyProfile.setId(0);
+                            dummyProfile.setFirstName("Загрузка...");
+                            dummyProfile.setLastName("");
+                            dummyProfile.setScreenName(login);
+                            AccountManager.getInstance(LoginActivity.this).addAccount(token, instance, dummyProfile);
+                            
+                            Toast.makeText(LoginActivity.this, "Вы успешно вошли в аккаунт!", Toast.LENGTH_SHORT).show();
+                            
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            if (getIntent().getBooleanExtra("add_account", false)) {
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            }
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+                });
+            }
+
+            @Override
+            public void onError(String error) {
+                runOnUiThread(() -> {
+                    handleLoginError(error, login);
+                });
+            }
+        });
+    }
+
+    private void handleLoginError(String error, String login) {
+        System.out.println("Ошибка авторизации: " + error);
+        
+        try {
+            JSONObject errorJson = new JSONObject(error);
+            
+            System.out.println(errorJson.toString());
+
+            boolean needs2FA = false;
+            String errorMsg = "";
+            
+            if (errorJson.has("error_code")) {
+                int errorCode = errorJson.getInt("error_code");
+                System.out.println("Код ошибки: " + errorCode);
+                
+                if (errorJson.has("error_msg")) {
+                    errorMsg = errorJson.getString("error_msg");
+                    System.out.println("Ошибка: " + errorMsg);
+
+                    if (errorCode == 28 && (errorMsg.contains("Invalid 2FA") || errorMsg.contains("2FA"))) {
+                        needs2FA = true;
+                    } else if (errorCode == 28 && (errorMsg.contains("Invalid username") || errorMsg.contains("Invalid password") || errorMsg.contains("invalid_grant"))) {
+                        needs2FA = false;
+                    } else if (errorCode == 28) {
+                        needs2FA = true;
+                    }
+                }
+            }
+            
+            if (needs2FA) {
+                System.out.println("Двухфакторка включена, переход на другой активити");
+
+                Intent intent = new Intent(LoginActivity.this, TwoFactorActivity.class);
+                intent.putExtra("username", login);
+                intent.putExtra("password", editPassword.getText().toString().trim());
+                intent.putExtra("instance", OpenVKApi.getInstance(LoginActivity.this).getBaseUrl());
+                startActivity(intent);
+                finish();
+                return;
+            }
+            
+            // Показываем понятное сообщение об ошибке
+            String message = "";
+            
+            if (!errorMsg.isEmpty()) {
+                if (errorMsg.contains("Invalid username") || errorMsg.contains("Invalid password") || errorMsg.contains("invalid_grant")) {
+                    message = "Неверный логин или пароль";
+                } else if (errorMsg.contains("Invalid 2FA")) {
+                    message = "Требуется двухфакторная аутентификация";
+                } else {
+                    message = errorMsg;
+                }
+            } else if (errorJson.has("error")) {
+                String errorType = errorJson.optString("error", "");
+                String errorDescription = errorJson.optString("error_description", "");
+                
+                if (errorType.equals("invalid_grant") || errorDescription.contains("Invalid username or password")) {
+                    message = "Неверный логин или пароль";
+                } else if (errorType.equals("invalid_client")) {
+                    message = "Ошибка клиента";
+                } else if (!errorDescription.isEmpty()) {
+                    message = errorDescription;
+                } else if (!errorType.isEmpty()) {
+                    message = "Ошибка: " + errorType;
+                } else {
+                    message = "Неизвестная ошибка входа";
+                }
+            } else {
+                message = "Неизвестная ошибка входа";
+            }
+            
+            Toast.makeText(LoginActivity.this, message, Toast.LENGTH_LONG).show();
+            
+        } catch (Exception e) {
+            System.out.println("Ошибка парсинга JSON: " + e.getMessage());
+            Toast.makeText(LoginActivity.this, "Ошибка: " + error, Toast.LENGTH_LONG).show();
+        }
+        
+        btnLogin.setEnabled(true);
+        btnLogin.setText("Войти");
+    }
+}

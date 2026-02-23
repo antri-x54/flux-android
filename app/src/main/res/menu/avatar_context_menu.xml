@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_open_photo"
+        android:title="Открыть фотографию"
+        android:icon="@drawable/ic_photo" />
+    <item
+        android:id="@+id/action_upload_photo"
+        android:title="Загрузить новую фотографию"
+        android:icon="@drawable/ic_upload" />
+</menu>

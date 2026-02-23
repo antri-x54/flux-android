@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Theme.Flux.HighContrast" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">#EBF0FF</item>
+        <item name="colorOnPrimary">#000000</item>
+        <item name="colorPrimaryContainer">#A6C3FC</item>
+        <item name="colorOnPrimaryContainer">#000B21</item>
+
+        <item name="colorSecondary">#EBF0FF</item>
+        <item name="colorOnSecondary">#000000</item>
+        <item name="colorSecondaryContainer">#BAC3D8</item>
+        <item name="colorOnSecondaryContainer">#030B1A</item>
+
+        <item name="colorTertiary">#E8F1FF</item>
+        <item name="colorOnTertiary">#000000</item>
+        <item name="colorTertiaryContainer">#9BC6F8</item>
+        <item name="colorOnTertiaryContainer">#000C1B</item>
+
+        <item name="colorError">#FFECE9</item>
+        <item name="colorErrorContainer">#FFAEA4</item>
+        <item name="colorOnError">#000000</item>
+
+        <item name="android:colorBackground">#111318</item>
+        <item name="colorOnBackground">#E2E2E9</item>
+        <item name="colorSurface">#111318</item>
+        <item name="colorOnSurface">#FFFFFF</item>
+
+        <item name="colorSurfaceVariant">#44474E</item>
+        <item name="colorOnSurfaceVariant">#FFFFFF</item>
+        <item name="colorOutline">#EEEFF9</item>
+
+        <item name="colorSurfaceInverse">#E2E2E9</item>
+        <item name="colorOnSurfaceInverse">#000000</item>
+        <item name="colorPrimaryInverse">#2A4879</item>
+
+        <item name="colorSurfaceDim">#111318</item>
+        <item name="colorSurfaceContainerLowest">#000000</item>
+
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
+    </style>
+
+</resources>

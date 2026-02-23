@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:name=".FluxApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@drawable/logo_flux"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/logo_flux"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Flux"
+        android:largeHeap="true"
+        android:hardwareAccelerated="true"
+        android:networkSecurityConfig="@xml/network_security_config">
+        <activity
+            android:name=".ui.activities.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.activities.CreatePostActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.activities.MainActivity"
+            android:theme="@style/Theme.Flux" />
+        <activity
+            android:name=".ui.activities.LoginActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Flux" />
+        <activity
+            android:name=".ui.activities.TwoFactorActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Flux" />
+        <activity
+            android:name=".ui.activities.PhotoViewerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.PhotoViewer" />
+        <activity
+            android:name=".ui.activities.AudioPlayerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Flux"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.activities.VideoPlayerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Flux"
+            android:supportsPictureInPicture="true" />
+        
+        <!-- Chat and Comments Activities -->
+        <activity
+            android:name=".ui.activities.ChatActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.activities.MainActivity"
+            android:theme="@style/Theme.Flux"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.activities.CommentsActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.activities.MainActivity"
+            android:theme="@style/Theme.Flux" />
+        
+        <!-- Settings Activities -->
+        <activity
+            android:name=".ui.activities.AppearanceSettingsActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.activities.MainActivity"
+            android:theme="@style/Theme.Flux" />
+        <activity
+            android:name=".ui.activities.AccountManagerActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.activities.MainActivity"
+            android:theme="@style/Theme.Flux" />
+        <activity
+            android:name=".ui.activities.NotificationsSettingsActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.activities.MainActivity"
+            android:theme="@style/Theme.Flux" />
+        <activity
+            android:name=".ui.activities.DataSettingsActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.activities.MainActivity"
+            android:theme="@style/Theme.Flux" />
+        <activity
+            android:name=".ui.activities.AboutAppActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.activities.MainActivity"
+            android:theme="@style/Theme.Flux" />
+        <activity
+            android:name=".ui.activities.AboutInstanceActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.activities.MainActivity"
+            android:theme="@style/Theme.Flux" />
+        
+        <service
+            android:name=".services.LongPollService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+        <service
+            android:name=".services.AudioPlayerService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback" />
+        
+        <receiver 
+            android:name="androidx.media.session.MediaButtonReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

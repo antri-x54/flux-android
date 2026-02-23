@@ -58,7 +58,7 @@
     <!-- Two Factor -->
     <string name="two_factor_title">Двухфакторная аутентификация</string>
     <string name="two_factor_subtitle">Подтверждение входа</string>
-    <string name="two_factor_description">Введите код из SMS или приложения-аутентификатора</string>
+    <string name="two_factor_description">Введите код из приложения-аутентификатора</string>
     <string name="two_factor_code_hint">Код подтверждения</string>
     <string name="btn_verify">Подтвердить</string>
     <string name="btn_verify_loading">Проверка...</string>

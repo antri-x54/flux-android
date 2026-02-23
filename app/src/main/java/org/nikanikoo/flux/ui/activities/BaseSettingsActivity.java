@@ -20,7 +20,11 @@ public abstract class BaseSettingsActivity extends AppCompatActivity {
         themeManager.applyThemeToActivity(this);
         
         super.onCreate(savedInstanceState);
-        
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
         ThemeManager.applySystemBarsAppearance(this);
     }
 

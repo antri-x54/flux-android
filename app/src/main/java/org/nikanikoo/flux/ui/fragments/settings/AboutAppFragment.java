@@ -38,7 +38,7 @@ public class AboutAppFragment extends Fragment {
     private void setupClickListeners() {
         itemGithub.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("https://github.com/nikanikoo/openvkflux"));
+            intent.setData(Uri.parse("https://github.com/nikanikoo/flux-android"));
             try {
                 startActivity(intent);
             } catch (Exception e) {

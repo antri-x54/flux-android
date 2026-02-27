@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black">
+    android:background="@android:color/black"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,11 +22,11 @@
                 android:id="@+id/player_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:show_buffering="when_playing"
                 app:controller_layout_id="@layout/custom_player_controls"
-                app:use_controller="true"
                 app:hide_on_touch="false"
-                app:show_timeout="3000" />
+                app:show_buffering="when_playing"
+                app:show_timeout="3000"
+                app:use_controller="true" />
 
             <ProgressBar
                 android:id="@+id/loading_progress"
@@ -39,9 +39,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
                 android:clickable="false"
-                android:focusable="false">
+                android:focusable="false"
+                android:orientation="horizontal">
 
                 <!-- Left zone for rewind -->
                 <FrameLayout
@@ -57,14 +57,14 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:background="@drawable/seek_indicator_background"
+                        android:clickable="false"
+                        android:focusable="false"
                         android:padding="16dp"
                         android:text="« 5"
                         android:textColor="@android:color/white"
                         android:textSize="24sp"
                         android:textStyle="bold"
-                        android:visibility="gone"
-                        android:clickable="false"
-                        android:focusable="false" />
+                        android:visibility="gone" />
 
                 </FrameLayout>
 
@@ -90,14 +90,14 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:background="@drawable/seek_indicator_background"
+                        android:clickable="false"
+                        android:focusable="false"
                         android:padding="16dp"
                         android:text="5 »"
                         android:textColor="@android:color/white"
                         android:textSize="24sp"
                         android:textStyle="bold"
-                        android:visibility="gone"
-                        android:clickable="false"
-                        android:focusable="false" />
+                        android:visibility="gone" />
 
                 </FrameLayout>
 
@@ -110,9 +110,9 @@
                 android:layout_height="48dp"
                 android:layout_margin="8dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Назад"
                 android:src="@drawable/ic_arrow_back"
-                app:tint="@android:color/white"
-                android:contentDescription="Назад" />
+                app:tint="@android:color/white" />
 
         </FrameLayout>
 
@@ -120,7 +120,7 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:attr/colorBackground"/>
+            android:background="?android:attr/colorBackground" />
 
     </LinearLayout>
 
